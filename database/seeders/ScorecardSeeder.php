@@ -102,6 +102,7 @@ class ScorecardSeeder extends Seeder
             // Create wickets data
             foreach ($match['wicketsData'] as $wicket) {
                 $matchEvents[] = [
+                    'inning_id' => $inningsId,
                     'match_id' => $matchId,
                     'wicket_batsman' => $wicket['batName'],
                     'wicket_number' => $wicket['wktNbr'],
@@ -116,6 +117,7 @@ class ScorecardSeeder extends Seeder
             // Create partnerships data
             foreach ($match['partnershipsData'] as $partnership) {
                 $partnerships[] = [
+                    'inning_id' => $inningsId,
                     'match_id' => $matchId,
                     'bat1_name' => $partnership['bat1Name'],
                     'bat2_name' => $partnership['bat2Name'],
@@ -128,10 +130,10 @@ class ScorecardSeeder extends Seeder
         }
 
         // Insert match headers
-        DB::table('match_details')->upsert($matchDetails, ['match_id'], ['match_description', 'match_format', 'status', 'updated_at']);
+        // DB::table('match_details')->upsert($matchDetails, ['match_id'], ['match_description', 'match_format', 'status', 'updated_at']);
 
         // Insert scorecards, batsmen, bowlers, partnerships, and match events data
-        DB::table('scorecards')->upsert($scorecards, ['match_id', 'bat_team_id', 'bowl_team_id'], ['overs', 'runs', 'wickets', 'run_rate', 'extras', 'updated_at']);
+        //  DB::table('scorecards')->upsert($scorecards, ['match_id', 'bat_team_id', 'bowl_team_id'], ['overs', 'runs', 'wickets', 'run_rate', 'extras', 'updated_at']);
         DB::table('batsmen')->upsert($batsmen, ['match_id', 'name'], ['runs', 'balls', 'fours', 'sixes', 'strike_rate', 'out_desc', 'updated_at']);
         DB::table('bowlers')->upsert($bowlers, ['match_id', 'name'], ['overs', 'maidens', 'runs', 'wickets', 'economy', 'updated_at']);
         DB::table('partnerships')->upsert($partnerships, ['match_id', 'bat1_name', 'bat2_name'], ['total_runs', 'total_balls', 'updated_at']);

@@ -139,24 +139,24 @@ class CricketSeriesService
     }
 
 
-    public function get_innings_details($post_data)
+    public function get_innings($post_data)
     {
         $response = [];
 
         // Additional business logic can be added here
-        $innings_details =  $this->cricketSeriesRepository->innings_details($post_data);
+        $innings =  $this->cricketSeriesRepository->get_innings($post_data);
 
-        if (count($innings_details) > 0) {
+        if (count($innings) > 0) {
             $response = [
                 'status' => 200,
-                'message' => 'Innings Details Found Successfully',
-                'data' => $innings_details
+                'message' => 'Innings Found Successfully',
+                'data' => $innings
             ];
         } else {
             $response = [
                 'status' => 300,
-                'message' => 'Innings Details Not Found',
-                'data' => $innings_details
+                'message' => 'Innings Not Found',
+                'data' => $innings
             ];
         }
 
@@ -164,12 +164,12 @@ class CricketSeriesService
     }
 
 
-    public function get_partnership_details()
+    public function get_partnership_details($post_data)
     {
         $response = [];
 
         // Additional business logic can be added here
-        $partnership_details =  $this->cricketSeriesRepository->partnership_details();
+        $partnership_details =  $this->cricketSeriesRepository->partnership_details($post_data);
 
         if (count($partnership_details) > 0) {
             $response = [
@@ -206,6 +206,30 @@ class CricketSeriesService
                 'status' => 300,
                 'message' => 'player of match Not Found',
                 'data' => $player_of_match
+            ];
+        }
+
+        return $response;
+    }
+
+
+    public function get_inning_details($post_data)
+    {
+        $response = [];
+
+        $innings_details =  $this->cricketSeriesRepository->get_inning_details($post_data);
+
+        if (count($innings_details) > 0) {
+            $response = [
+                'status' => 200,
+                'message' => 'Innings Details Found Successfully',
+                'data' => $innings_details
+            ];
+        } else {
+            $response = [
+                'status' => 300,
+                'message' => 'Innings Details Not Found',
+                'data' => $innings_details
             ];
         }
 

@@ -14,9 +14,11 @@ interface CricketSeriesRepositoryInterface
 
     public function get_teams();
 
-    public function innings_details($post_data);
+    public function get_innings($post_data);
 
-    public function partnership_details();
+    public function partnership_details($post_data);
 
     public function player_of_match();
+
+    public function get_inning_details($post_data);
 }

@@ -29,8 +29,10 @@ Route::get('venues', [CricketSeriesController::class, 'get_venues']);
 
 Route::get('teams', [CricketSeriesController::class, 'get_teams']);
 
-Route::get('innings_details', [CricketSeriesController::class, 'get_innings_details']);
+Route::get('innings', [CricketSeriesController::class, 'get_innings']);
 
 Route::get('partnership', [CricketSeriesController::class, 'get_partnership_details']);
 
 Route::get('player_of_match', [CricketSeriesController::class, 'get_player_of_match']);
+
+Route::get('inning_details', [CricketSeriesController::class, 'get_inning_details']);

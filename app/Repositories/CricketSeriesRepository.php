@@ -4,6 +4,8 @@
 namespace App\Repositories;
 
 use App\Interfaces\CricketSeriesRepositoryInterface;
+use App\Models\Batsmen;
+use App\Models\Bowler;
 use App\Models\CricketSeries;
 use App\Models\InningsScore;
 use App\Models\Matches;
@@ -32,8 +34,9 @@ class CricketSeriesRepository implements CricketSeriesRepositoryInterface
 
     public function get_series_data($post_data)
     {
-        $post_data['series_id'] = 7745;
-        $data = CricketSeries::where('series_id', $post_data['series_id'])->get();
+        $series_id = $post_data['series_id'];
+
+        $data = CricketSeries::where('series_id', $series_id)->get();
 
         return $data;
     }
@@ -61,10 +64,10 @@ class CricketSeriesRepository implements CricketSeriesRepositoryInterface
         return $teams;
     }
 
-    public function innings_details($post_data)
+    public function get_innings($post_data)
     {
-        $match_id = 91778;
-        // $match_id = $post_data['match_id'];
+        //$match_id = 91778;
+        $match_id = $post_data['match_id'];
         // $innings = InningsScore::where('match_id', $match_id)->get();
         $innings = InningsScore::select(
             'innings_scores.*',
@@ -77,9 +80,15 @@ class CricketSeriesRepository implements CricketSeriesRepositoryInterface
         return $innings;
     }
 
-    public function partnership_details()
+    public function partnership_details($post_data)
     {
-        $partnership = Partnership::all();
+        $inning_id = $post_data['inning_id'];
+        $match_id = $post_data['match_id'];
+
+        $partnership = Partnership::where([
+            ['match_id' => $match_id],
+            ['inning_id' => $inning_id]
+        ])->get();
 
         return $partnership;
     }
@@ -92,5 +101,30 @@ class CricketSeriesRepository implements CricketSeriesRepositoryInterface
         $player_of_match = PlayerOfMatch::where('match_id', $match_id)->first();
 
         return $player_of_match;
+    }
+
+    public function get_inning_details($post_data)
+    {
+        $inning_id = $post_data['inning_id'];
+
+        $batting_details = Batsmen::where('inning_id', $inning_id)->get();
+
+        $bowling_details = Bowler::where('inning_id', $inning_id)->get();
+
+        if ($batting_details->isEmpty()) {
+            $batting_details = "No batting details found for this inning";
+        }
+
+        if ($bowling_details->isEmpty()) {
+            $bowling_details = "No bowling details found for this inning";
+        }
+
+        $inning_details = [
+            'inning_id' => $inning_id,
+            'batting_details' => $batting_details,
+            'bowling_details' => $bowling_details
+        ];
+
+        return $inning_details;
     }
 }
