@@ -43,11 +43,11 @@ class CricketSeriesController extends Controller
         }
     }
 
-    public function get_all_matches(Request $request)
+    public function get_matches(Request $request)
     {
         $post_data = $request->all();
         // Call the service method to get the data
-        $data = $this->cricketSeriesService->get_all_matches($post_data);
+        $data = $this->cricketSeriesService->get_matches($post_data);
 
         // Return the data as JSON
         if ($data['status'] == 200) {
@@ -74,6 +74,49 @@ class CricketSeriesController extends Controller
     {
         // Call the service method to get the data
         $data = $this->cricketSeriesService->get_teams();
+
+        // Return the data as JSON
+        if ($data['status'] == 200) {
+            return response()->json(['status' => 200, 'data' => $data]);
+        } else {
+            return response()->json(['status' => 400, 'error' => 'Something went wrong']);
+        }
+    }
+
+
+    public function get_innings_details(Request $request)
+    {
+        $post_data = $request->all();
+
+        // Call the service method to get the data
+        $data = $this->cricketSeriesService->get_innings_details($post_data);
+
+        // Return the data as JSON
+        if ($data['status'] == 200) {
+            return response()->json(['status' => 200, 'data' => $data]);
+        } else {
+            return response()->json(['status' => 400, 'error' => 'Something went wrong']);
+        }
+    }
+
+
+    public function get_partnership_details()
+    {
+        // Call the service method to get the data
+        $data = $this->cricketSeriesService->get_partnership_details();
+
+        // Return the data as JSON
+        if ($data['status'] == 200) {
+            return response()->json(['status' => 200, 'data' => $data]);
+        } else {
+            return response()->json(['status' => 400, 'error' => 'Something went wrong']);
+        }
+    }
+
+    public function get_player_of_match()
+    {
+        // Call the service method to get the data
+        $data = $this->cricketSeriesService->get_player_of_match();
 
         // Return the data as JSON
         if ($data['status'] == 200) {

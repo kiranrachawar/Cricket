@@ -65,24 +65,24 @@ class CricketSeriesService
     }
 
 
-    public function get_all_matches($post_data)
+    public function get_matches($post_data)
     {
         $response = [];
 
         // Additional business logic can be added here
-        $get_all_matches =  $this->cricketSeriesRepository->get_all_match_data();
+        $get_matches =  $this->cricketSeriesRepository->get_matche_data($post_data);
 
-        if (count($get_all_matches) > 0) {
+        if (count($get_matches) > 0) {
             $response = [
                 'status' => 200,
                 'message' => 'Match Found Successfully',
-                'data' => $get_all_matches
+                'data' => $get_matches
             ];
         } else {
             $response = [
                 'status' => 300,
                 'message' => 'Data Not Found',
-                'data' => $get_all_matches
+                'data' => $get_matches
             ];
         }
 
@@ -132,6 +132,80 @@ class CricketSeriesService
                 'status' => 300,
                 'message' => 'Teams Not Found',
                 'data' => $get_teams
+            ];
+        }
+
+        return $response;
+    }
+
+
+    public function get_innings_details($post_data)
+    {
+        $response = [];
+
+        // Additional business logic can be added here
+        $innings_details =  $this->cricketSeriesRepository->innings_details($post_data);
+
+        if (count($innings_details) > 0) {
+            $response = [
+                'status' => 200,
+                'message' => 'Innings Details Found Successfully',
+                'data' => $innings_details
+            ];
+        } else {
+            $response = [
+                'status' => 300,
+                'message' => 'Innings Details Not Found',
+                'data' => $innings_details
+            ];
+        }
+
+        return $response;
+    }
+
+
+    public function get_partnership_details()
+    {
+        $response = [];
+
+        // Additional business logic can be added here
+        $partnership_details =  $this->cricketSeriesRepository->partnership_details();
+
+        if (count($partnership_details) > 0) {
+            $response = [
+                'status' => 200,
+                'message' => 'Partnership Details Found Successfully',
+                'data' => $partnership_details
+            ];
+        } else {
+            $response = [
+                'status' => 300,
+                'message' => 'Partnership Details Not Found',
+                'data' => $partnership_details
+            ];
+        }
+
+        return $response;
+    }
+
+    public function get_player_of_match()
+    {
+        $response = [];
+
+        // Additional business logic can be added here
+        $player_of_match =  $this->cricketSeriesRepository->player_of_match();
+
+        if ($player_of_match) {
+            $response = [
+                'status' => 200,
+                'message' => 'player of match Found Successfully',
+                'data' => $player_of_match
+            ];
+        } else {
+            $response = [
+                'status' => 300,
+                'message' => 'player of match Not Found',
+                'data' => $player_of_match
             ];
         }
 

@@ -5,7 +5,10 @@ namespace App\Repositories;
 
 use App\Interfaces\CricketSeriesRepositoryInterface;
 use App\Models\CricketSeries;
+use App\Models\InningsScore;
 use App\Models\Matches;
+use App\Models\Partnership;
+use App\Models\PlayerOfMatch;
 use App\Models\Team;
 use App\Models\Venue;
 
@@ -36,9 +39,10 @@ class CricketSeriesRepository implements CricketSeriesRepositoryInterface
     }
 
 
-    public function get_all_match_data()
+    public function get_matche_data($post_data)
     {
-        $matches = Matches::all();
+        $series_id = $post_data['series_id'];
+        $matches = Matches::where('series_id', $series_id)->get();
 
         return $matches;
     }
@@ -55,5 +59,38 @@ class CricketSeriesRepository implements CricketSeriesRepositoryInterface
         $teams = Team::all();
 
         return $teams;
+    }
+
+    public function innings_details($post_data)
+    {
+        $match_id = 91778;
+        // $match_id = $post_data['match_id'];
+        // $innings = InningsScore::where('match_id', $match_id)->get();
+        $innings = InningsScore::select(
+            'innings_scores.*',
+            'teams.name as team_name'
+        )
+            ->join('teams', 'innings_scores.team_id', '=', 'teams.id')
+            ->where('innings_scores.match_id',  $match_id)
+            ->get();
+
+        return $innings;
+    }
+
+    public function partnership_details()
+    {
+        $partnership = Partnership::all();
+
+        return $partnership;
+    }
+
+
+    public function player_of_match()
+    {
+        $match_id = 91778;
+
+        $player_of_match = PlayerOfMatch::where('match_id', $match_id)->first();
+
+        return $player_of_match;
     }
 }

@@ -23,8 +23,14 @@ Route::get('all_series', [CricketSeriesController::class, 'get_all_series']);
 
 Route::get('series_details', [CricketSeriesController::class, 'get_series_details']);
 
-Route::get('all_matches', [CricketSeriesController::class, 'get_all_matches']);
+Route::get('matches', [CricketSeriesController::class, 'get_matches']);
 
 Route::get('venues', [CricketSeriesController::class, 'get_venues']);
 
 Route::get('teams', [CricketSeriesController::class, 'get_teams']);
+
+Route::get('innings_details', [CricketSeriesController::class, 'get_innings_details']);
+
+Route::get('partnership', [CricketSeriesController::class, 'get_partnership_details']);
+
+Route::get('player_of_match', [CricketSeriesController::class, 'get_player_of_match']);

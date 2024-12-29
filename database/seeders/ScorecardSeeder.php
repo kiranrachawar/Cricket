@@ -67,6 +67,7 @@ class ScorecardSeeder extends Seeder
             // Create batsmen data
             foreach ($match['batTeamDetails']['batsmenData'] as $batsman) {
                 $batsmen[] = [
+                    'inning_id' => $inningsId,
                     'match_id' => $matchId,
                     'name' => $batsman['batName'],
                     'is_captain' => $batsman['isCaptain'],
@@ -85,6 +86,7 @@ class ScorecardSeeder extends Seeder
             // Create bowlers data
             foreach ($match['bowlTeamDetails']['bowlersData'] as $bowler) {
                 $bowlers[] = [
+                    'inning_id' => $inningsId,
                     'match_id' => $matchId,
                     'name' => $bowler['bowlName'],
                     'overs' => $bowler['overs'],
