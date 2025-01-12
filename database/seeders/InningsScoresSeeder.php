@@ -21,6 +21,7 @@ class InningsScoresSeeder extends Seeder
         foreach ($data['matchDetails'] as $matchDetails) {
             if (isset($matchDetails['matchDetailsMap']['match'])) {
                 foreach ($matchDetails['matchDetailsMap']['match'] as $match) {
+                    $seriesId = $match['matchInfo']['seriesId'];
                     $matchId = $match['matchInfo']['matchId'];
                     $team1 = $match['matchInfo']['team1'];
                     $team2 = $match['matchInfo']['team2'];
@@ -28,7 +29,9 @@ class InningsScoresSeeder extends Seeder
                     // Team 1 Innings Scores
                     if (isset($match['matchScore']['team1Score'])) {
                         $innings_scores[] = [
+                            'series_id' => $seriesId,
                             'match_id' => $matchId,
+                            'inning_id' => $match['matchScore']['team1Score']['inngs1']['inningsId'],
                             'team_id' => $team1['teamId'],
                             'runs' => $match['matchScore']['team1Score']['inngs1']['runs'],
                             'wickets' => $match['matchScore']['team1Score']['inngs1']['wickets'] ?? 0,
@@ -41,7 +44,9 @@ class InningsScoresSeeder extends Seeder
                         // If there are more innings for team 1
                         if (isset($match['matchScore']['team1Score']['inngs2'])) {
                             $innings_scores[] = [
+                                'series_id' => $seriesId,
                                 'match_id' => $matchId,
+                                'inning_id' => $match['matchScore']['team1Score']['inngs2']['inningsId'],
                                 'team_id' => $team1['teamId'],
                                 'runs' => $match['matchScore']['team1Score']['inngs2']['runs'],
                                 'wickets' => $match['matchScore']['team1Score']['inngs2']['wickets'] ?? 0,
@@ -56,7 +61,9 @@ class InningsScoresSeeder extends Seeder
                     // Team 2 Innings Scores
                     if (isset($match['matchScore']['team2Score'])) {
                         $innings_scores[] = [
+                            'series_id' => $seriesId,
                             'match_id' => $matchId,
+                            'inning_id' => $match['matchScore']['team2Score']['inngs1']['inningsId'],
                             'team_id' => $team2['teamId'],
                             'runs' => $match['matchScore']['team2Score']['inngs1']['runs'],
                             'wickets' => $match['matchScore']['team2Score']['inngs1']['wickets'] ?? 0,
@@ -69,7 +76,9 @@ class InningsScoresSeeder extends Seeder
                         // If there are more innings for team 2
                         if (isset($match['matchScore']['team2Score']['inngs2'])) {
                             $innings_scores[] = [
+                                'series_id' => $seriesId,
                                 'match_id' => $matchId,
+                                'inning_id' => $match['matchScore']['team2Score']['inngs2']['inningsId'],
                                 'team_id' => $team2['teamId'],
                                 'runs' => $match['matchScore']['team2Score']['inngs2']['runs'],
                                 'wickets' => $match['matchScore']['team2Score']['inngs2']['wickets'] ?? 0,

@@ -36,3 +36,5 @@ Route::get('partnership', [CricketSeriesController::class, 'get_partnership_deta
 Route::get('player_of_match', [CricketSeriesController::class, 'get_player_of_match']);
 
 Route::get('inning_details', [CricketSeriesController::class, 'get_inning_details']);
+
+Route::get('player_points', [CricketSeriesController::class, 'get_player_points']);
