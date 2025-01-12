@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class InningsScore extends Model
 {
     protected $fillable = [
-        'match_id', 'team_id', 'runs', 'wickets', 'overs', 'inning_number'
+        'series_id',
+        'match_id',
+        'inning_id',
+        'team_id',
+        'runs',
+        'wickets',
+        'overs',
+        'inning_number'
     ];
 
     public function match()
@@ -21,4 +28,3 @@ class InningsScore extends Model
         return $this->belongsTo(Team::class, 'team_id');
     }
 }
-

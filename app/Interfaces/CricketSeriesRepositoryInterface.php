@@ -21,4 +21,6 @@ interface CricketSeriesRepositoryInterface
     public function player_of_match();
 
     public function get_inning_details($post_data);
+
+    public function get_player_points_details($post_data);
 }

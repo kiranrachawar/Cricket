@@ -235,4 +235,28 @@ class CricketSeriesService
 
         return $response;
     }
+
+
+    public function get_player_points($post_data)
+    {
+        $response = [];
+
+        $playe_points =  $this->cricketSeriesRepository->get_player_points_details($post_data);
+
+        if ($playe_points) {
+            $response = [
+                'status' => 200,
+                'message' => 'Innings Details Found Successfully',
+                'data' => $playe_points
+            ];
+        } else {
+            $response = [
+                'status' => 300,
+                'message' => 'Innings Details Not Found',
+                'data' => $playe_points
+            ];
+        }
+
+        return $response;
+    }
 }
